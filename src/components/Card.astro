@@ -1,0 +1,113 @@
+---
+import movieList from './movies.json';
+
+export interface Props {
+  title: string;
+  plot: string;
+  href: string;
+  poster: string;
+  year: string;
+}
+
+// let q = ['Shrek', 'Shrek+2', '12+Angry+Men'];
+
+// const response = await fetch(`http://www.omdbapi.com/?apikey=${import.meta.env.OMDB_API_KEY}&t=${q[2]}&type=movie`);
+// const movieData = await response.json();
+
+// console.log(movieData);
+
+// <li class="movie-card">
+//   <a href={href}>
+//     <img class="moviePoster" src={movieData.Poster} alt={movieData.Title} />
+//     <div class="dataHolder">
+//       <h2 class="movieTitle">
+//         {movieData.Title}
+//       </h2>
+//       <p class="moviePlot">
+//         {plot}
+//       </p>
+//     </div>
+//   </a>
+// </li>
+
+const { href, title, plot, poster, year } = Astro.props;
+---
+
+<li class="movie-card">
+  <a href={href} target="_blank">
+    <img class="moviePoster" src={poster} alt={title} />
+    <div class="dataHolder">
+      <div class="trHolder">
+        <h2 class="movieTitle">
+          {title}
+        </h2>
+        <p class="movieRelease">
+          ({year})
+        </p>
+      </div>
+
+      <p class="moviePlot">
+        {plot}
+      </p>
+    </div>
+  </a>
+</li>
+
+<style>
+  .movie-card {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--color-bg);
+    background-size: 400%;
+    border-radius: 0.5rem;
+    max-width: 300px;
+  }
+
+  .movie-card > a {
+    width: 100%;
+    text-decoration: none;
+    line-height: 1.4;
+    border-radius: 0.35rem;
+    color: var(--text-color);
+  }
+
+  .dataHolder {
+    padding: 0 20px 20px 20px;
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+    background-color: black;
+    border-radius: 0 0 0.35rem 0.35rem;
+  }
+
+  .moviePoster {
+    width: 100%;
+    border-radius: 0.35rem 0.35rem 0 0;
+  }
+
+  .movieRelease {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.731);
+  }
+
+  .movieTitle {
+    margin: 10px 0 0 0;
+    font-size: 30px;
+    color: rgb(255,255,255);
+    line-height: 30px;
+  }
+
+  .trHolder {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+  }
+
+  .moviePlot {
+    font-size: 15px;
+    text-align: justify;
+    color: rgb(189, 189, 189);
+    max-height: 100px;
+  }
+</style>

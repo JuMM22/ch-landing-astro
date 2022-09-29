@@ -1,17 +1,17 @@
 ---
+import movieJSON from '../json/moviedb.json';
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 
+async function getMovieDataFromOmdb(movieTitle) {
+  const response = await fetch(
+    `http://www.omdbapi.com/?apikey=${import.meta.env.OMDB_API_KEY}&t=${movieTitle}&type=movie`,
+  );
+  
+  let movieData = await response.json();
 
-let i = 'u.u'
-
-let q = ['pulp+fiction', 'Shrek+2', '12+Angry+Men', 'The+Lord+of+the+Rings+:+The+Return+of+the+King'];
-
-const response = await fetch(`http://www.omdbapi.com/?apikey=${import.meta.env.OMDB_API_KEY}&t=${q[2]}&type=movie`);
-const movieData = await response.json();
-
-console.log(movieData);
-
+  return movieData;
+}
 
 ---
 
@@ -26,14 +26,19 @@ console.log(movieData);
       </div>
     </header>
 
-    <ul role="list" class="link-card-grid">
-      <Card
-        href= {`https://www.imdb.com/title/${movieData.imdbID}/`}
-        title = {`${movieData.Title}`}
-        poster = {`${movieData.Poster}`}
-        plot = {`${movieData.Plot}`}
-        year = {`${movieData.Year}`}
-      />
+    <ul id="movieList" role="list" class="link-card-grid">
+      {
+        movieJSON.movies.map((movie) => (
+          
+          <Card
+            href={getMovieDataFromOmdb(movie.title).then((movieData) => {`https://www.imdb.com/title/${movieData.imdbID}/`})}
+            title={`${movie.title}`}
+            poster={`${getMovieDataFromOmdb(movie.title).posterUrl}`}
+            plot={`${movie.plot}`}
+            year={`${movie.year}`}
+          />
+        ))
+      }
     </ul>
   </main>
 </Layout>
@@ -55,7 +60,7 @@ console.log(movieData);
   }
 
   .subtitle {
-    color: rgb(214,214,214);
+    color: rgb(214, 214, 214);
     margin: 0 40px;
     text-align: center;
     position: relative;
@@ -93,8 +98,9 @@ console.log(movieData);
   .link-card-grid {
     display: flex;
     flex-direction: row;
-    gap: 15px;
     margin: 20px;
     padding: 0;
+    flex-wrap: wrap;
+    justify-content: space-around;
   }
 </style>

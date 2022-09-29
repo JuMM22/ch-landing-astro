@@ -1,6 +1,4 @@
 ---
-import movieList from './movies.json';
-
 export interface Props {
   title: string;
   plot: string;
@@ -8,27 +6,6 @@ export interface Props {
   poster: string;
   year: string;
 }
-
-// let q = ['Shrek', 'Shrek+2', '12+Angry+Men'];
-
-// const response = await fetch(`http://www.omdbapi.com/?apikey=${import.meta.env.OMDB_API_KEY}&t=${q[2]}&type=movie`);
-// const movieData = await response.json();
-
-// console.log(movieData);
-
-// <li class="movie-card">
-//   <a href={href}>
-//     <img class="moviePoster" src={movieData.Poster} alt={movieData.Title} />
-//     <div class="dataHolder">
-//       <h2 class="movieTitle">
-//         {movieData.Title}
-//       </h2>
-//       <p class="moviePlot">
-//         {plot}
-//       </p>
-//     </div>
-//   </a>
-// </li>
 
 const { href, title, plot, poster, year } = Astro.props;
 ---
@@ -62,6 +39,7 @@ const { href, title, plot, poster, year } = Astro.props;
     background-size: 400%;
     border-radius: 0.5rem;
     max-width: 300px;
+    min-width: 300px;
   }
 
   .movie-card > a {
@@ -102,6 +80,7 @@ const { href, title, plot, poster, year } = Astro.props;
     display: flex;
     align-items: start;
     gap: 10px;
+    flex-wrap: wrap;
   }
 
   .moviePlot {

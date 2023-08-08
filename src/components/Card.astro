@@ -12,7 +12,9 @@ const { href, title, plot, poster, year } = Astro.props;
 
 <li class="movie-card">
   <a href={href} target="_blank">
-    <img class="moviePoster" src={poster} alt={title} />
+    <div class="posterHolder">
+      <img class="moviePoster" src={poster} alt={title} />
+    </div>
     <div class="dataHolder">
       <div class="trHolder">
         <h2 class="movieTitle">
@@ -40,27 +42,33 @@ const { href, title, plot, poster, year } = Astro.props;
     border-radius: 0.5rem;
     max-width: 300px;
     min-width: 300px;
+    margin-bottom: 40px;
   }
 
   .movie-card > a {
     width: 100%;
     text-decoration: none;
     line-height: 1.4;
-    border-radius: 0.35rem;
+    border-radius: 50px;
     color: var(--text-color);
+  }
+
+  .posterHolder {
+    max-width: 300px;
+    max-height: 400px;
   }
 
   .dataHolder {
     padding: 0 20px 20px 20px;
     overflow: hidden;
     position: relative;
-    height: 200px;
+    height: 150px;
     background-color: black;
     border-radius: 0 0 0.35rem 0.35rem;
   }
 
   .moviePoster {
-    width: 100%;
+    max-width: 300px;
     border-radius: 0.35rem 0.35rem 0 0;
   }
 
@@ -72,7 +80,7 @@ const { href, title, plot, poster, year } = Astro.props;
   .movieTitle {
     margin: 10px 0 0 0;
     font-size: 30px;
-    color: rgb(255,255,255);
+    color: rgb(255, 255, 255);
     line-height: 30px;
   }
 
@@ -88,5 +96,6 @@ const { href, title, plot, poster, year } = Astro.props;
     text-align: justify;
     color: rgb(189, 189, 189);
     max-height: 100px;
+    text-overflow: ellipsis;
   }
 </style>

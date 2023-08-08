@@ -35,7 +35,7 @@ async function getMovieDataFromOmdb(movieTitle) {
               href={`https://www.imdb.com/title/${omdbData.imdbID}/`}
               title={`${movie.title}`}
               poster={omdbData.Poster}
-              plot={`${movie.plot}`}
+              plot={`${movie.plot.slice(0,120)}`+" (...)"}
               year={`${movie.year}`}
             />)
         })
